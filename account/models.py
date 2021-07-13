@@ -34,6 +34,7 @@ class Team(models.Model):
 class Player(models.Model):
     profile = models.OneToOneField(MyUser, on_delete=models.CASCADE, primary_key=True)
     first_name = models.CharField(max_length=30, blank=False, null=False)
+    last_name = models.CharField(max_length=50, blank=False, null=False)
     team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='players')
 
 
