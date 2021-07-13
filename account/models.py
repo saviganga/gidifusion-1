@@ -19,11 +19,14 @@ class MyUser(AbstractUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['name',]
 
+    def __str__(self) -> str:
+        return f'{self.name} | {self.email} | {self.is_team} | {self.is_player} | {self.is_fan}'
+
 
 class Team(models.Model):
     
     profile = models.OneToOneField(MyUser, on_delete=models.CASCADE, primary_key=True)
-    coach = models.CharField(max_length=100,)
+    coach = models.CharField(max_length=100, blank=False, null=False)
     phone = models.BigIntegerField(max_length=11, unique=True, null=False, blank=False)
 
 
