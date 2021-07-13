@@ -15,6 +15,8 @@ dbus-python==1.2.16
 distro==1.4.0
 distro-info===0.23ubuntu1
 Django==3.2.2
+django-phone-field==1.8.1
+django-phonenumber-field==5.2.0
 entrypoints==0.3
 gunicorn==20.1.0
 httplib2==0.14.0
@@ -36,6 +38,7 @@ more-itertools==4.2.0
 netifaces==0.10.4
 oauthlib==3.1.0
 pexpect==4.6.0
+phonenumbers==8.12.27
 pyasn1==0.4.2
 pyasn1-modules==0.2.1
 PyGObject==3.36.0

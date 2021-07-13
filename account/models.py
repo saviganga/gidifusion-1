@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.db.models.expressions import F
+#from phonenumber_field.modelfields import PhoneNumberField
 from .managers import MyUserManager
 
 # Create your models here.
@@ -27,7 +28,7 @@ class Team(models.Model):
     
     profile = models.OneToOneField(MyUser, on_delete=models.CASCADE, primary_key=True)
     coach = models.CharField(max_length=100, blank=False, null=False)
-    phone = models.BigIntegerField(max_length=11, unique=True, null=False, blank=False)
+    phone = models.SmallIntegerField(max_length=11, unique=True, null=False, blank=False)
 
 
 class Player(models.Model):
