@@ -27,9 +27,6 @@ class MyUserModelTest(TestCase):
         self.assertEqual(self.test_user1.is_fan, False)
         self.assertEqual(self.test_user1.is_player, False)
         self.assertEqual(self.test_user1.is_team, True)
-        self.assertEqual(self.test_user2.is_team, False)
-        self.assertEqual(self.test_user3.is_team, False)
-        self.assertEqual(self.test_user3.is_player, False)
 
     def test_user2_type(self):
         self.assertEqual(self.test_user2.is_fan, False)
