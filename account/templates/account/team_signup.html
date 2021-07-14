@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Signup</title>
+    </head>
+    <body>
+        <h1>TEAMS</h1>
+        <form method="POST" action="">
+            {% csrf_token %}
+            {% for field in form %}
+                {{field.label}}: {{field}} <br><br>
+            {% endfor %}
+            <button>register</button>
+        </form>
+    </body>
+</html>

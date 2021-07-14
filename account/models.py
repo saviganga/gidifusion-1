@@ -28,7 +28,7 @@ class Team(models.Model):
     
     profile = models.OneToOneField(MyUser, on_delete=models.CASCADE, primary_key=True)
     coach = models.CharField(max_length=100, blank=False, null=False)
-    phone = models.SmallIntegerField(unique=True, null=False, blank=False)
+    phone = models.CharField(max_length=11, unique=True, null=False, blank=False)
 
 
 class Player(models.Model):
