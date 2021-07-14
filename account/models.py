@@ -21,7 +21,7 @@ class MyUser(AbstractUser):
     REQUIRED_FIELDS = ['name',]
 
     def __str__(self) -> str:
-        return f'{self.name} | {self.email} | {self.is_team} | {self.is_player} | {self.is_fan}'
+        return f'{self.name} | {self.email} '
 
 
 class Team(models.Model):
@@ -30,6 +30,8 @@ class Team(models.Model):
     coach = models.CharField(max_length=100, blank=False, null=False)
     phone = models.CharField(max_length=11, unique=True, null=False, blank=False)
 
+    def __str__(self) -> str:
+        return f'{self.profile.name}'
 
 class Player(models.Model):
     profile = models.OneToOneField(MyUser, on_delete=models.CASCADE, primary_key=True)
@@ -37,6 +39,8 @@ class Player(models.Model):
     last_name = models.CharField(max_length=50, blank=False, null=False)
     team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='players')
 
+    def __str__(self) -> str:
+        return f'{self.profile.name} | {self.profile.email}' 
 
 class Fan(models.Model):
 
