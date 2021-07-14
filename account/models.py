@@ -48,3 +48,5 @@ class Fan(models.Model):
     first_name = models.CharField(max_length=30, blank=False, null=False)
     last_name = models.CharField(max_length=50, blank=False, null=False)
 
+    def __str__(self) -> str:
+        return f'{self.first_name} {self.last_name}: {self.profile.email}'

@@ -13,7 +13,7 @@ class TeamSignUpForm(UserCreationForm):
 
     class Meta(UserCreationForm.Meta):
         model = get_user_model()
-        fields = ['name', 'email', 'coach', 'phone']
+        fields = ['email', 'name', 'coach', 'phone']
 
     @transaction.atomic # enforces single database operation
     def save(self):
@@ -36,7 +36,7 @@ class PlayerSignUpForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
 
         model = get_user_model()
-        fields = ['first_name', 'last_name', 'name', 'email', 'team']
+        fields = ['email', 'first_name', 'last_name', 'name', 'team']
 
     @transaction.atomic
     def save(self):
@@ -47,5 +47,25 @@ class PlayerSignUpForm(UserCreationForm):
         last_name = self.cleaned_data.get('last_name')
         team = self.cleaned_data.get('team')
         player = Player.objects.create(profile=user, first_name=first_name, last_name=last_name, team=team)
-        #player.team.add(*self.cleaned_data.get('team'))
+        return user
+
+
+class FanSignUpForm(UserCreationForm):
+
+    first_name = forms.CharField(max_length=30, required=True)
+    last_name = forms.CharField(max_length=50, required=True)
+
+    class Meta(UserCreationForm.Meta):
+
+        model = get_user_model()
+        fields = ['email', 'first_name', 'last_name','name']
+
+    @transaction.atomic
+    def save(self):
+        user = super().save(commit=False)
+        user.is_fan = True
+        user.save()
+        first_name = self.cleaned_data.get('first_name')
+        last_name = self.cleaned_data.get('last_name')
+        fan = Fan.objects.create(profile=user, first_name=first_name, last_name=last_name)
         return user

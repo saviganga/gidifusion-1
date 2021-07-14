@@ -52,3 +52,22 @@ def player_signup_view(request):
         return redirect('signup')
 
     return render(request, template, template_vars)
+
+
+
+@require_http_methods(['GET', 'POST'])
+def fan_signup_view(request):
+
+    if request.user.is_authenticated:
+        return redirect('signup')
+
+    form = forms.FanSignUpForm(request.POST or None)
+    template = 'account/fan_signup.html'
+    template_vars = {'form':form}
+
+    if form.is_valid():
+        new_fan = form.save()
+        new_fan.save()
+        return redirect('signup')
+
+    return render(request, template, template_vars)
