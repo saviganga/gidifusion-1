@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'account.apps.AccountConfig',
     'phonenumber_field', 
+    'events.apps.EventsConfig',
 ]
 
 MIDDLEWARE = [

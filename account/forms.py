@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.db import transaction
 
 from django.contrib.auth import get_user_model
-from account.models import Team, Player, Fan
+from account.models import Team, Player, Fan, Vendor
 
 class TeamSignUpForm(UserCreationForm):
 
@@ -13,7 +13,7 @@ class TeamSignUpForm(UserCreationForm):
 
     class Meta(UserCreationForm.Meta):
         model = get_user_model()
-        fields = ['email', 'name', 'coach', 'phone']
+        fields = ['email', 'coach', 'phone']
 
     @transaction.atomic # enforces single database operation
     def save(self):
@@ -31,12 +31,13 @@ class PlayerSignUpForm(UserCreationForm):
 
     first_name = forms.CharField(max_length=30, required=True)
     last_name = forms.CharField(max_length=50, required=True)
+    position = forms.CharField(max_length=50, required=True)
     team = forms.ModelChoiceField(queryset=Team.objects.all())
 
     class Meta(UserCreationForm.Meta):
 
         model = get_user_model()
-        fields = ['email', 'first_name', 'last_name', 'name', 'team']
+        fields = ['email', 'first_name', 'last_name', 'position', 'team']
 
     @transaction.atomic
     def save(self):
@@ -58,7 +59,7 @@ class FanSignUpForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
 
         model = get_user_model()
-        fields = ['email', 'first_name', 'last_name','name']
+        fields = ['email', 'first_name', 'last_name',]
 
     @transaction.atomic
     def save(self):
@@ -69,3 +70,25 @@ class FanSignUpForm(UserCreationForm):
         last_name = self.cleaned_data.get('last_name')
         fan = Fan.objects.create(profile=user, first_name=first_name, last_name=last_name)
         return user
+
+
+class VendorSignUpForm(UserCreationForm):
+
+    name = forms.CharField(max_length=50, required=True)
+
+    class Meta(UserCreationForm.Meta):
+        
+        model = get_user_model()
+        fields = ['email', 'name']
+
+        @transaction.atomic
+        def save(self):
+            user = super().save(commit=False)
+            user.is_vendor = True
+            user.save()
+            name = self.cleaned_data.get('name')
+            vendor = Vendor.objects.create(profile=user, name=name,)
+            return user
+
+
+

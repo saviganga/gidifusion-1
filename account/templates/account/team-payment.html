@@ -4,13 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome</title>
+    <title>Document</title>
 </head>
 <body>
-    <a href="{% url 'team-signup' %}">Teams</a><br>
-    <a href="{% url 'player-signup' %}">Players</a><br>
-    <a href="{% url 'fan-signup' %}">Fans</a><br>
-    <a href="{% url 'vendor-signup' %}">Vendors</a><br><br>
+    hey, {{team.coach}}
     <a href="{% url 'logout' %}">logout</a>
 </body>
 </html>

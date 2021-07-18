@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth import get_user_model  #allows access to our custom user model
 from django.contrib.auth.admin import UserAdmin #allows inheritance of UserAdmin class to override some functionalities
 from django.utils.translation import gettext_lazy as _
-from .models import Team, Player, Fan
+from .models import Team, Player, Fan, Vendor
 # Register your models here.
 
 '''
@@ -36,7 +36,7 @@ class MyUserAdmin(UserAdmin):
     )
 
     #set the view on the admin site
-    list_display = ('email', 'name', 'is_staff', 'is_active', 'is_team', 'is_player', 'is_fan')
+    list_display = ('email', 'is_staff', 'is_active', 'is_team', 'is_player', 'is_fan')
     list_filter = ('is_staff', 'is_superuser', 'is_active', 'groups')
     search_fields = ('email', 'name')
     ordering = ('-date_joined',)
@@ -46,3 +46,4 @@ admin.site.register(get_user_model(), MyUserAdmin)
 admin.site.register(Team)
 admin.site.register(Player)
 admin.site.register(Fan)
+admin.site.register(Vendor)
