@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_http_methods, require_safe
 from django.contrib.auth import authenticate, login, logout
+from django.urls import reverse
 
 from . import forms
 from .models import MyUser as user, Team
@@ -21,7 +22,7 @@ def team_signup_view(request):
     if request.user.is_authenticated:
         return redirect('signup')   # redirect to index/homepage
 
-    # define formand template variables
+    # define form and template variables
     form = forms.TeamSignUpForm(request.POST or None)
     template = 'account/team_signup.html'
     template_vars = {'form': form}
@@ -31,7 +32,8 @@ def team_signup_view(request):
         new_team = form.save()
         new_team.save()
         login(request, new_team)
-        return redirect('team-payment')
+        # return redirect('team-payment')
+        return redirect(reverse('events'))
 
     return render(request, template, template_vars)
 
@@ -90,7 +92,8 @@ def vendor_signup_view(request):
         new_vendor = form.save()
         new_vendor.save()
         login(request, new_vendor)
-        return redirect('signup')
+        # request.session['vendor'] = request.user.pk
+        return redirect(reverse('create-event'))
     
     return render(request, template, template_vars)
 

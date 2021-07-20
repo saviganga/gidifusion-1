@@ -36,7 +36,7 @@ class MyUserAdmin(UserAdmin):
     )
 
     #set the view on the admin site
-    list_display = ('email', 'is_staff', 'is_active', 'is_team', 'is_player', 'is_fan')
+    list_display = ('email', 'is_staff', 'is_active', 'is_team', 'is_player', 'is_fan', 'is_vendor')
     list_filter = ('is_staff', 'is_superuser', 'is_active', 'groups')
     search_fields = ('email', 'name')
     ordering = ('-date_joined',)

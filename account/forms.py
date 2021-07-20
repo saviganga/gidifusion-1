@@ -8,21 +8,23 @@ from account.models import Team, Player, Fan, Vendor
 class TeamSignUpForm(UserCreationForm):
 
     # add extra fields not in the user model
+    name = forms.CharField(max_length=100, required=True)
     coach = forms.CharField(max_length=100, required=True)
     phone = forms.CharField(max_length=11, required=True)
 
     class Meta(UserCreationForm.Meta):
         model = get_user_model()
-        fields = ['email', 'coach', 'phone']
+        fields = ['email', 'name', 'coach', 'phone']
 
     @transaction.atomic # enforces single database operation
     def save(self):
         user = super().save(commit=False)
         user.is_team = True
         user.save()
+        name = self.cleaned_data.get('name')
         coach = self.cleaned_data.get('coach')
         phone = self.cleaned_data.get('phone')
-        team = Team.objects.create(profile=user, coach=coach, phone=phone)
+        team = Team.objects.create(profile=user, name=name, coach=coach, phone=phone)
         return user
 
 
@@ -87,7 +89,7 @@ class VendorSignUpForm(UserCreationForm):
             user.is_vendor = True
             user.save()
             name = self.cleaned_data.get('name')
-            vendor = Vendor.objects.create(profile=user, name=name,)
+            vendor = Vendor.objects.create(profile=user, name=name)
             return user
 
 
