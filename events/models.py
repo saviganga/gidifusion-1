@@ -25,6 +25,6 @@ class Tickets(models.Model):
         return f'NGN{self.price}'
 
     def __str__(self) -> str:
-        return f'{self.event} || {self.type} || {self.price}'
+        return f'{self.event} || NGN{self.price}'
 
 

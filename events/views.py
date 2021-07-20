@@ -1,11 +1,11 @@
-from events.models import Event
+from events.models import Event, Tickets
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_http_methods, require_safe
 from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required, permission_required
 
 from account.models import MyUser as user, Vendor
-from events.forms import CreateEventForm
+from events.forms import CreateEventForm, CreateTicketForm
 # reverse
 
 # Create your views here.
@@ -39,6 +39,45 @@ def create_event_view(request):
         new_event.save()
 
         # redirect to events page
-        return redirect('events')
+        return redirect('create-ticket')
     
     return render(request, template, template_vars)
+
+
+@require_http_methods(['GET', 'POST'])
+@permission_required(('admin.can_add_log_entry'))
+def create_ticket_view(request):
+
+    form = CreateTicketForm(request.POST or None)
+    template = 'events/create_ticket.html'
+    template_vars = {'form': form}
+
+    if form.is_valid():
+
+        new_ticket = form.save(commit=False)
+        new_ticket.save()
+
+        return redirect('list-tickets')
+
+    return render(request, template, template_vars)
+
+
+def list_tickets_view(request):
+
+    tickets = Tickets.objects.all()
+    template = 'events/list_tickets.html'
+    template_vars = {'tickets': tickets}
+
+    return render(request, template, template_vars)
+
+def list_team_tickets(request):
+
+    if not request.session['team']:
+        return redirect('events')
+
+    team_tickets = Tickets.objects.filter(type='Team')
+    template = 'events/list_team_tickets.html'
+    template_vars = {'team_tickets': team_tickets}
+
+    return render(request, template, template_vars)
+

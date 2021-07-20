@@ -1,8 +1,10 @@
+from django.db.models import fields
 from django.forms import ModelForm
 from django import forms
 from django.db import transaction
+from django.forms.models import model_to_dict
 
-from events.models import Event
+from events.models import Event, Tickets
 from account.models import MyUser
 
 class CreateEventForm(ModelForm):
@@ -24,5 +26,12 @@ class CreateEventForm(ModelForm):
         # price = self.cleaned_data.get('price')
         event = Event.objects.create(name=name, date=date)
         return event
+
+class CreateTicketForm(ModelForm):
+
+    class Meta():
+
+        model = Tickets
+        fields = ['event', 'type', 'price']
 
 

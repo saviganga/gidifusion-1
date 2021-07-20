@@ -32,8 +32,9 @@ def team_signup_view(request):
         new_team = form.save()
         new_team.save()
         login(request, new_team)
+        request.session['team'] = request.user.is_team
         # return redirect('team-payment')
-        return redirect(reverse('events'))
+        return redirect(reverse('list-team-tickets'))
 
     return render(request, template, template_vars)
 

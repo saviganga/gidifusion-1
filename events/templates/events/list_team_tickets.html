@@ -1,0 +1,15 @@
+{% extends 'events/base_event.html' %}
+
+{% block body %}
+    <h1>Team Ticket List</h1>
+    
+    <ol>
+        
+        {% for team_ticket in team_tickets %}
+            <li> {{ team_ticket }} </li><br><br>
+        {% endfor %}
+        
+    </ol>
+
+    <a href="{% url 'logout' %}">logout</a>
+{% endblock %}
