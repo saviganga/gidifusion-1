@@ -6,7 +6,9 @@
     <ol>
         
         {% for team_ticket in team_tickets %}
-            <li> {{ team_ticket }} </li><br><br>
+            <li>  
+                <a href="{% url 'display-team-ticket' team_ticket.id %}">{{ team_ticket }}</a>
+            </li><br><br>
         {% endfor %}
         
     </ol>

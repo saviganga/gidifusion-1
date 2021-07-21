@@ -97,3 +97,30 @@ def list_fan_ticket_view(request):
     template_vars = {'fan_tickets': fan_tickets}
 
     return render(request, template, template_vars)
+
+
+
+def display_team_ticket_view(request, ticket_id):
+
+    if not request.session['team']:
+        return redirect('events')
+    
+
+    team_ticket = Tickets.objects.get(pk=ticket_id, type='Team')
+    template = 'events/display_team_ticket.html'
+    template_vars = {'team_ticket': team_ticket}
+
+    return render(request, template, template_vars)
+
+
+def display_fan_ticket_view(request, ticket_id):
+
+
+    if not request.session['fan']:
+        return redirect('events')
+
+    fan_ticket = Tickets.objects.get(pk=ticket_id, type='Fan')
+    template = 'events/display_fan_ticket.html'
+    template_vars = {'fan_ticket': fan_ticket}
+
+    return render(request, template, template_vars)

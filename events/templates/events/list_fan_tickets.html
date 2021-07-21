@@ -6,7 +6,9 @@
     <ol>
         
         {% for fan_ticket in fan_tickets %}
-            <li> {{ fan_ticket }} </li><br><br>
+        <li>  
+            <a href="{% url 'display-fan-ticket' fan_ticket.id %}">{{ fan_ticket }}</a>
+        </li><br><br>
         {% endfor %}
         
     </ol>

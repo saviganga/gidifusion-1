@@ -1,0 +1,11 @@
+{% extends 'events/base_event.html' %}
+
+{% block body %}
+    <h1>Event: {{ fan_ticket.event }}</h1>
+    
+    <h2>Type: {{ fan_ticket.type }}</h2>
+
+    <h3>Price: NGN{{ fan_ticket.price }}</h3>
+
+    <a href="{% url 'logout' %}">logout</a>
+{% endblock %}
