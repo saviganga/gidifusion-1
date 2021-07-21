@@ -74,7 +74,10 @@ def fan_signup_view(request):
         new_fan = form.save()
         new_fan.save()
         login(request, new_fan)
-        return redirect('signup')
+        request.session['fan'] = request.user.is_fan
+        # return redirect('team-payment')
+        return redirect(reverse('list-fan-tickets'))
+        # return redirect('signup')
 
     return render(request, template, template_vars)
 

@@ -70,8 +70,11 @@ def list_tickets_view(request):
 
     return render(request, template, template_vars)
 
+
+
 def list_team_tickets(request):
 
+    
     if not request.session['team']:
         return redirect('events')
 
@@ -81,3 +84,16 @@ def list_team_tickets(request):
 
     return render(request, template, template_vars)
 
+
+
+
+def list_fan_ticket_view(request):
+
+    if not request.session['fan']:
+        return redirect('events')
+
+    fan_tickets = Tickets.objects.filter(type='Fan')
+    template = 'events/list_fan_tickets.html'
+    template_vars = {'fan_tickets': fan_tickets}
+
+    return render(request, template, template_vars)
